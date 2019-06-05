@@ -1,3 +1,5 @@
 /chat-board-server/node_modules
 package-lock*
 .connect
+.env
+/chat-board-server/data
