@@ -7,3 +7,4 @@ mongoose.connect("mongodb://localhost:28888/chat-board", {
 });
 
 module.exports.User = require("./user");
+module.exports.Message = require("./message");
