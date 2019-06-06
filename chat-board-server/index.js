@@ -5,7 +5,8 @@ const express = require("express"),
       bodyParser = require("body-parser"),
       errorHandler = require("./handlers/error"),
       authRoutes = require("./routes/auth"),
-      messagesRoutes = require("./routes/messages");
+      messagesRoutes = require("./routes/messages"),
+      { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const PORT = 8081;
 
@@ -14,7 +15,10 @@ app.use(bodyParser.json());
 
 // all routes goes here
 app.use("/api/auth", authRoutes);
-app.use("/api/users/:id/messages", messagesRoutes);
+app.use("/api/users/:id/messages",
+  loginRequired,
+  ensureCorrectUser,
+  messagesRoutes);
 
 // error handling
 app.use(function(req, res, next){
