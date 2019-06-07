@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Logo from "../images/Chat-board-logo.png"
 
 class Navbar extends Component {
   render() {
     return(
       <nav className="navbar navbar-expand">
         <div className="container-fluid">
+          <div className="navbar-header">
           <Link to="/" className="navbar-brand">
-            <img src="" alt="chat-board Home"></img>
+            <img src={Logo} alt="chat-board Home"></img>
           </Link>
-        </div>
+          </div>
         <ul className="nav navbar-nav navbar-right">
           <li>
             <Link to="/signup">Sign up</Link>
@@ -19,6 +21,7 @@ class Navbar extends Component {
             <Link to="/signin">Log in</Link>
           </li>
         </ul>
+        </div>
       </nav>
     )
   }
