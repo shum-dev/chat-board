@@ -67,3 +67,7 @@ ul.nav.navbar-nav li {
   text-align: center;
   text-shadow: 0 0 8px #66757fa4;
 }
+
+form button {
+  margin-top: 25px;
+}

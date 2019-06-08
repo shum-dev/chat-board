@@ -10,15 +10,24 @@ export default class AuthForm extends Component {
       profileImageUrl: ""
     };
   }
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const authType = this.props.signUp ? "signup" : "signin";
+    this.props.onAuth(authType, this.state).then(() => {
+      console.log("Logged in !!!");
+    });
+    e.target.reset();
+  }
+
   render() {
     const { email, username, password, profileImageUrl } = this.state;
-    const { heading, buttonText, signUp } = this.props;
+    const { heading, buttonText, signUp, onAuth } = this.props;
     return (
       <div>
         <div className="row justify-content-md-center text-center">
@@ -31,7 +40,6 @@ export default class AuthForm extends Component {
                 id="email"
                 name="email"
                 onChange={this.handleChange}
-                value={email}
                 type="text"
               />
               <label htmlFor="password">Password:</label>
@@ -50,7 +58,6 @@ export default class AuthForm extends Component {
                     id="username"
                     name="username"
                     onChange={this.handleChange}
-                    value={username}
                     type="text"
                   />
                   <label htmlFor="image-url">Image URL:</label>
@@ -64,6 +71,9 @@ export default class AuthForm extends Component {
                   />
                 </div>
               )}
+              <button type="submit" className="btn btn-primary btn-block btn-lg">
+                {buttonText}
+              </button>
             </form>
          </div>
         </div>
