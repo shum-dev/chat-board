@@ -26,6 +26,23 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+.navbar button {
+    outline: none;
+    color: #4972B0;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar button:hover {
+  color: #F9F9FA;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 .navbar-brand > img {
   display: inline-block;
@@ -66,6 +83,10 @@ ul.nav.navbar-nav li {
   left: 20%;
   text-align: center;
   text-shadow: 0 0 8px #66757fa4;
+}
+
+.home-hero-text a {
+  margin-bottom: 10px;
 }
 
 form button {

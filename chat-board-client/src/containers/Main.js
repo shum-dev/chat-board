@@ -6,17 +6,17 @@ import AuthForm from "../components/AuthForm";
 import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 
-const Main = ({authUser, errors, removeError}) => {
+const Main = ({authUser, errors, removeError, currentUser}) => {
   return (
     <div className="container">
       <Switch>
-        <Route exact path="/" render={props => <Homepage {...props} />} />
+        <Route exact path="/" render={props => <Homepage {...props} currentUser={currentUser}/>} />
         <Route exact path="/signin" render={props => {
           return(
             <AuthForm
               {...props}
               buttonText="Log in"
-              heading="Wellcome Back."
+              heading="Wellcome Back!"
               onAuth={authUser}
               errors={errors}
               removeError={removeError} />

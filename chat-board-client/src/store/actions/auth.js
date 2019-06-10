@@ -9,6 +9,13 @@ export function setCurrentUser(user) {
   };
 }
 
+export function logOut() {
+  return dispatch => {
+    window.localStorage.clear();
+    dispatch(setCurrentUser({}));
+  }
+}
+
 export function authUser(type, userData) {
   return dispatch => {
     return new Promise((resolve, reject) => {
