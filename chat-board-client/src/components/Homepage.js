@@ -22,7 +22,7 @@ const Homepage = ({ currentUser }) => {
   }
   return (
     <div>
-      <MessageTilmeLine/>
+      <MessageTilmeLine profileImageUrl={currentUser.user.profileImageUrl} username={currentUser.user.username}/>
     </div>
   )
 };

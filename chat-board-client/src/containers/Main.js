@@ -33,7 +33,9 @@ const Main = ({authUser, errors, removeError, currentUser}) => {
               removeError={removeError}
               />
           )
-        }} />
+        }}
+        />
+        <Route path="/users/:id/messages/new" component={MessageForm} />
       </Switch>
     </div>
   );
