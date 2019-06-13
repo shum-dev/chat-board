@@ -4,7 +4,7 @@ exports.createMessage = async function(req, res, next) {
   try {
     let message = await db.Message.create({
       text: req.body.text,
-      user: req.params.id  // TODO: take user id from previouse middleware
+      user: req.params.id
     });
     let foundUser = await db.User.findById(req.params.id);
     foundUser.messages.push(message.id);
@@ -22,7 +22,7 @@ exports.createMessage = async function(req, res, next) {
 exports.getMessage = async function(req, res, next) {
   try {
     let message = await db.Message.find({_id: req.params.message_id})
-    return res.status(200).json(message)
+    return res.status(200).json(message);
   } catch(err) {
     return next(err);
   }

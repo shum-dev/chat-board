@@ -7,7 +7,8 @@ const express = require("express"),
       authRoutes = require("./routes/auth"),
       messagesRoutes = require("./routes/messages"),
       { loginRequired, ensureCorrectUser } = require("./middleware/auth"),
-      db = require("./models");
+      db = require("./models"),
+      userRoutes = require("./routes/users");
 
 const PORT = 8081;
 
@@ -16,6 +17,12 @@ app.use(bodyParser.json());
 
 // all routes goes here
 app.use("/api/auth", authRoutes);
+
+app.use("/api/users/:id",
+  loginRequired,
+  ensureCorrectUser,
+  userRoutes);
+
 app.use("/api/users/:id/messages",
   loginRequired,
   ensureCorrectUser,
