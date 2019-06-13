@@ -1,0 +1,115 @@
+body {
+  background-color: #FEFEFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar {
+  margin-bottom: 1rem;
+  box-shadow: 0 0 10px -3px rgba(0, 0, 0, 0.5);
+  transition: all .5s ease-out;
+}
+.navbar:hover {
+  box-shadow: 0 0 15px -2px rgba(0, 0, 0, 0.5);
+}
+
+.navbar a {
+  font-weight: bold;
+  color: #4972B0;
+}
+
+.navbar a:hover {
+  color: #F9F9FA;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar button {
+    outline: none;
+    color: #4972B0;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar button:hover {
+  color: #F9F9FA;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar-brand > img {
+  display: inline-block;
+  width: 100px;
+  margin-right: 5px;
+}
+
+ul.nav.navbar-nav li {
+  margin: 0 0.5rem;
+}
+
+.onboarding > .navbar {
+  background: #67B26F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FAF5F4, #9197B4);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FAF5F4, #9197B4 ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: 100% 100%;
+}
+
+.home-hero {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+  background-image: url("./images/background-membaca-9.jpg");
+  padding: 1rem;
+  background-position: center center;
+  background-size: cover;
+}
+
+.home-hero-text {
+  position: absolute;
+  left: 20%;
+  text-align: center;
+  text-shadow: 0 0 8px #66757fa4;
+}
+
+.home-hero-text a {
+  margin-bottom: 10px;
+}
+
+form button {
+  margin-top: 25px;
+}
+
+#messages .list-group-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 7px 20px 12px;
+}
+
+#messages:not(.no-hover) .list-group-item:hover {
+  background-color: #F9F4F4;
+}
+
+.timeline-image {
+  border-radius: 50px;
+  height: 48px;
+  width: 48px;
+  margin: 2px 30px 10px 10px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
