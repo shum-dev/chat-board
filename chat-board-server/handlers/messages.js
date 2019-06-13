@@ -37,3 +37,12 @@ exports.deleteMessage = async function(req, res, next) {
     return next(err);
   }
 };
+
+exports.editMessage = async function(req, res, next) {
+  try {
+    let newMessage = await db.Message.findOneAndUpdate({_id: req.params.message_id}, req.body, {new:true});
+    return res.status(200).json(newMessage);
+  } catch(err) {
+    return next(err);
+  }
+}

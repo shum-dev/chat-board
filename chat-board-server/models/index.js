@@ -3,7 +3,8 @@ mongoose.set("debug", true);
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost:28888/chat-board", {
   keepAlive: true,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 });
 
 module.exports.User = require("./user");
