@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const User = require("./user");
+const db = require("./index");
 
 const messageSchema = new mongoose.Schema({
   text: {
@@ -18,14 +18,14 @@ const messageSchema = new mongoose.Schema({
 
 messageSchema.pre("remove", async function(next){
   try {
-    const user = await User.findById(this.user);
+    const user = await db.User.findById(this.user);
     user.messages.remove(this.id);
     await user.save();
     return next();
   } catch(err) {
     return next(err);
   }
-})
+});
 
 const Message = mongoose.model("Message", messageSchema);
 

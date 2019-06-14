@@ -7,9 +7,14 @@ export default class AuthForm extends Component {
       email: "",
       username: "",
       password: "",
-      profileImageUrl: ""
+      profileImageUrl: null
     };
   }
+
+  handleImgChange = e => {
+    this.setState({profileImageUrl: e.target.files[0]});
+  }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -18,8 +23,21 @@ export default class AuthForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const authType = this.props.signUp ? "signup" : "signin";
-    this.props.onAuth(authType, this.state)
+    let formData;
+    let authType;
+    //TODO: simplyfi in one row
+    if(this.props.signUp) {
+      authType = "signup";
+      formData = new FormData();
+      formData.append('email', this.state.email);
+      formData.append("username", this.state.username);
+      formData.append("password", this.state.password);
+      formData.append("profileImageUrl", this.state.profileImageUrl);
+    } else {
+      authType = "signin";
+      formData = {...this.state}
+    }
+    this.props.onAuth(authType, formData)
       .then(() => {
         this.props.history.push("/")
       })
@@ -30,7 +48,6 @@ export default class AuthForm extends Component {
   }
 
   render() {
-    const { email, username, password, profileImageUrl } = this.state;
     const { heading, buttonText, signUp, errors, history, removeError } = this.props;
 
     history.listen(() => {
@@ -70,14 +87,13 @@ export default class AuthForm extends Component {
                     onChange={this.handleChange}
                     type="text"
                   />
-                  <label htmlFor="image-url">Image URL:</label>
+                  <label htmlFor="image-ava">Image:</label>
                   <input
-                    className="form-control"
-                    id="image-url"
+                    className="form-control-file"
+                    id="image-ava"
                     name="profileImageUrl"
-                    onChange={this.handleChange}
-                    type="text"
-                    value={profileImageUrl}
+                    onChange={this.handleImgChange}
+                    type="file"
                   />
                 </div>
               )}

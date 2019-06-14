@@ -3,3 +3,4 @@ package-lock*
 .connect
 .env
 /chat-board-server/data
+/chat-board-client/node_modules

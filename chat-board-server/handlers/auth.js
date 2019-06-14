@@ -1,5 +1,6 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../middleware/cloudinary");
 
 exports.signin = async function(req, res, next) {
   try{
@@ -39,7 +40,16 @@ exports.signin = async function(req, res, next) {
 
 exports.signup = async function(req, res, next) {
   try {
-    if (!process.env.SECRET_KEY) throw new Error("JWT Secret is undefined.");
+    // explisitly set profileimage to undefined (otherwise it will be "null") for apply default image if user don't provide an avatar picture
+    req.body.profileImageUrl = undefined;
+    if (!process.env.SECRET_KEY) throw new Error("JWT Secret is undefined. Check your environment.");
+    req.body.profileImageUrl === 'null' ? null : req.body.profileImageUrl;
+    req.file && await cloudinary.v2.uploader.upload(req.file.path, function(err, result){
+      if(err){
+        throw new Error("Cloudinary error!")
+      }
+      req.body.profileImageUrl = result.secure_url;
+    })
     let user = await db.User.create(req.body);
     let { id, username, profileImageUrl } = user;
     let token = jwt.sign({
