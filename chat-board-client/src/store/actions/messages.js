@@ -14,18 +14,17 @@ export const remove = id => ({
 
 export const removeMessage = (user_id, message_id) => {
   return dispatch => {
-    console.log("Fire!");
     return apiCall("delete", `/api/users/${user_id}/messages/${message_id}`)
       .then(() => dispatch(remove(message_id)))
-      .catch(err => addError(err.message));
+      .catch(err => dispatch(addError(err.message)));
   }
 }
 
 export const fetchMessages = () => {
   return dispatch => {
-    return apiCall("GET", "/api/messages")
+    return apiCall("get", "/api/messages")
       .then(res => dispatch(loadMessages(res)))
-      .catch(err => addError(err.message));
+      .catch(err => dispatch(addError(err.message)));
   }
 }
 

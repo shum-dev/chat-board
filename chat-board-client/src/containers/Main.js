@@ -30,7 +30,8 @@ const Main = ({authUser, errors, removeError, currentUser}) => {
               {...props}
               buttonText="Sign me up!"
               heading="Join Chat-board today"
-              signUp onAuth={authUser}
+              signUp
+              onAuth={authUser}
               errors={errors}
               removeError={removeError}
               />
