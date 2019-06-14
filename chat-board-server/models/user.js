@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const db = require("./index");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -23,6 +24,15 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Message"
   }]
+});
+
+userSchema.pre("remove", async function(next){
+  try {
+    await db.Message.deleteMany({user: this._id});
+    return next();
+  } catch(err) {
+    return next(err);
+  }
 });
 
 userSchema.pre("save", async function(next){
