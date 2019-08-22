@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
-mongoose.set("debug", true);
+// mongoose.set("debug", true);
 mongoose.Promise = Promise;
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:28888/chat-board", {
+// mongoose.connect(process.env.MONGODB_URI, {
+
 mongoose.connect("mongodb://localhost:28888/chat-board", {
   keepAlive: true,
   useNewUrlParser: true,

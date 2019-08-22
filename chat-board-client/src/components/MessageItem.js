@@ -1,15 +1,15 @@
 import React from "react";
 import Moment from "react-moment";
-import { Link } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import DefaultProfileImg from "../images/default-avatar.png";
 
-const MessageItem = ({date, profileImageUrl, text, username, removeMessage, isCorrectUser}) => (
+const MessageItem = ({messageId, date, profileImageUrl, text, user, removeMessage, isCorrectUser, history}) => (
     <li className="list-group-item">
-      <img src={profileImageUrl || DefaultProfileImg} alt={username} height="100" width="100" className="timeline-image" />
+      <img src={profileImageUrl || DefaultProfileImg} alt={user.username} height="100" width="100" className="timeline-image" />
       <div className="message-area">
-        <Link to="/">@{username} &nbsp;</Link>
+        <Link to="/">@{user.username} &nbsp;</Link>
         <span className="text-muted">
-          <Moment className="text-muted" format="Do MMM YYYY">
+          <Moment className="text-muted" format="DD/MM/YYYY">
             {date}
           </Moment>
         </span>
@@ -17,12 +17,17 @@ const MessageItem = ({date, profileImageUrl, text, username, removeMessage, isCo
           {text}
         </p>
         {isCorrectUser && (
-          <button className="btn btn-danger" onClick={removeMessage}>
-            Delete
-          </button>
+          <div className="text-right">
+            <button
+              className="btn btn-secondary btn-sm"
+              onClick={() => (history.push( `/users/${user._id}/messages/${messageId}`))}>Edit</button>
+            <button className="btn btn-danger btn-sm" onClick={removeMessage}>
+              Delete
+            </button>
+          </div>
         )}
       </div>
     </li>
 )
 
-export default MessageItem;
+export default withRouter(MessageItem);

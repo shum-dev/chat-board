@@ -7,14 +7,15 @@ exports.signin = async function(req, res, next) {
     let user = await db.User.findOne({
       email: req.body.email
     });
-    let { id, username, profileImageUrl } = user;
+    let { id, username, profileImageUrl, email } = user;
     let isMatch = await user.comparePassword(req.body.password);
     if(isMatch){
       let token = jwt.sign(
         {
           id,
           username,
-          profileImageUrl
+          profileImageUrl,
+          email
         },
         process.env.SECRET_KEY
       );
@@ -22,7 +23,8 @@ exports.signin = async function(req, res, next) {
         id,
         username,
         profileImageUrl,
-        token
+        token,
+        email
       })
     } else {
       return next({
@@ -43,7 +45,6 @@ exports.signup = async function(req, res, next) {
     // explisitly set profileimage to undefined (otherwise it will be "null") for apply default image if user don't provide an avatar picture
     req.body.profileImageUrl = undefined;
     if (!process.env.SECRET_KEY) throw new Error("JWT Secret is undefined. Check your environment.");
-    req.body.profileImageUrl === 'null' ? null : req.body.profileImageUrl;
     req.file && await cloudinary.v2.uploader.upload(req.file.path, function(err, result){
       if(err){
         throw new Error("Cloudinary error!")
@@ -51,11 +52,12 @@ exports.signup = async function(req, res, next) {
       req.body.profileImageUrl = result.secure_url;
     })
     let user = await db.User.create(req.body);
-    let { id, username, profileImageUrl } = user;
+    let { id, username, profileImageUrl, email } = user;
     let token = jwt.sign({
       id,
       username,
-      profileImageUrl
+      profileImageUrl,
+      email
     },
       process.env.SECRET_KEY,
     );
@@ -63,7 +65,8 @@ exports.signup = async function(req, res, next) {
       id,
       username,
       profileImageUrl,
-      token
+      token,
+      email
     });
   } catch(err){
     if(err.code === 11000){

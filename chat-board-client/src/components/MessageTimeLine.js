@@ -8,6 +8,7 @@ const MessageTimeLine = props => {
       <UserAside
         profileImageUrl={props.profileImageUrl}
         username={props.username}
+        email={props.email}
       />
       <MessageList />
     </div>

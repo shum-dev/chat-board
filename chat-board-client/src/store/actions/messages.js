@@ -29,11 +29,21 @@ export const fetchMessages = () => {
 }
 
 export const postNewMessage = text => {
-  return  (dispatch, getState) => {
+  return (dispatch, getState) => {
     let { currentUser } = getState();
     const id = currentUser.user.id;
     return apiCall("post", `/api/users/${id}/messages`, { text })
       .then(res => {})
-      .catch(err => addError(err.message));
+      .catch(err => dispatch(addError(err.message)));
     }
+}
+
+export const editMessage = (text, message_id) => {
+  return (dispatch, getState) => {
+    let { currentUser } = getState();
+    const id = currentUser.user.id;
+    return apiCall("put", `/api/users/${id}/messages/${message_id}`, {text})
+      .then(res => {})
+      .catch(err => dispatch(addError(err.message)));
+  }
 }

@@ -113,3 +113,11 @@ form button {
 .btn:hover {
   cursor: pointer;
 }
+
+.message-area {
+  width: 100%;
+}
+
+.message-area button:nth-of-type(1) {
+  margin-right: 10px;
+}

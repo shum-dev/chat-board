@@ -12,17 +12,19 @@ class MessageList extends Component {
     let messageList = messages.map(item => (
       <MessageItem
         key={item._id}
-        date={item.createAt}
+        messageId={item._id}
+        date={item.createdAt}
         text={item.text}
-        username={item.user.username}
+        user={item.user}
         profileImageUrl={item.user.profileImageUrl}
         removeMessage={removeMessage.bind(this, item.user._id, item._id)}
         isCorrectUser={currentUser === item.user._id}
       />
     ));
     return (
-      <div className="row col-sm-8">
-        <div className="offset-1 col-sm-10">
+      <div className="row col-md-8">
+        {/* <div className="offset-1 col-sm-12"> */}
+        <div className=" col-sm-12">
           <ul className="list-group" id="messages">
             {messageList}
           </ul>

@@ -7,8 +7,27 @@ import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth from "../hocs/withAuth";
 import MessageForm from "../containers/MessageForm";
+import EditMessageForm from "../containers/EditMessageForm";
+import { editMessage } from "../store/actions/messages";
 
-const Main = ({authUser, errors, removeError, currentUser}) => {
+const Main = ({authUser, errors, removeError, currentUser, messages, editMessage}) => {
+  const getMessage = routeProps => {
+    let message = '';
+    try{
+      message = messages.filter(item => item._id === routeProps.match.params.message_id)[0].text
+    } catch(ignore){
+      message = localStorage.currentMessage;
+    }
+    return (
+      <EditMessageForm
+              {...routeProps}
+              currentUser={currentUser}
+              message={message}
+              errors={errors}
+              editMessage={editMessage}
+      />
+    )
+  }
   return (
     <div className="container">
       <Switch>
@@ -39,6 +58,8 @@ const Main = ({authUser, errors, removeError, currentUser}) => {
         }}
         />
         <Route path="/users/:id/messages/new" component={withAuth(MessageForm)} />
+        <Route path="/users/:id/messages/:message_id" render={getMessage}/>
+
       </Switch>
     </div>
   );
@@ -47,8 +68,9 @@ const Main = ({authUser, errors, removeError, currentUser}) => {
 function mapStateToProps(reduxState) {
   return {
     currentUser: reduxState.currentUser,
-    errors: reduxState.errors
+    errors: reduxState.errors,
+    messages: reduxState.messages
   };
 }
 
-export default withRouter(connect(mapStateToProps, { authUser, removeError })(Main));
+export default withRouter(connect(mapStateToProps, { authUser, removeError, editMessage })(Main));
