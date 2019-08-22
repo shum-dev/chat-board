@@ -2,7 +2,7 @@
 Chat-board is a social web application on which people with similar interests discuss topics in the form of posted messages. 
 
 ## Task
-
+I did it so that I could learn enough about authentication and authorization with JWT tokens
 ## Criteria
   * 1
   * 2
@@ -13,5 +13,6 @@ Chat-board is a social web application on which people with similar interests di
  ## Tech Stack
  * React
  * Redux
- * Node
+ * Node.js
+ * Express
  * Heroku
