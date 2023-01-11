@@ -1,6 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import DefaultProfileImg from "../images/default-avatar.png";
 
 const MessageItem = ({messageId, date, profileImageUrl, text, user, removeMessage, isCorrectUser, history}) => (

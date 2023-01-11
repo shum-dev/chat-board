@@ -15,4 +15,3 @@ For demo access to the app use followng credentials:
  * Node.js
  * Express
  * JWT + bcrypt
- * Heroku
