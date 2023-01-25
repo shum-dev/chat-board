@@ -15,7 +15,9 @@ const Homepage = ({ currentUser }) => {
           <h4>Alredy have an account?</h4>
           <Link to="/signin" className="btn btn-primary">
             Log in
-          </Link>
+          </Link> <br/>
+          <small>Quick Access: test@test.com </small><br/>
+          <small>password: test</small>
         </div>
       </div>
     );
