@@ -11,8 +11,9 @@ class MessageForm extends Component {
   }
   handleNewMessage = event => {
     event.preventDefault();
-    this.props.postNewMessage(this.state.message);
-    this.props.history.push("/")
+    this.props.postNewMessage(this.state.message).then(() => {
+      this.props.history.push("/");
+    });
   }
   render(){
     return(

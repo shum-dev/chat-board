@@ -14,8 +14,9 @@ class EditMessageForm extends Component {
   }
   handleSubmit = event => {
     event.preventDefault();
-    this.props.editMessage(this.state.message, this.props.match.params.message_id);
-    this.props.history.push("/")
+    this.props.editMessage(this.state.message, this.props.match.params.message_id).then(() => {
+      this.props.history.push("/")
+    });
   }
 
   render(){

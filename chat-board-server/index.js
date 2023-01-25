@@ -1,14 +1,14 @@
 require("dotenv").config();
-const express = require("express"),
-      app = express(),
-      cors = require("cors"),
-      bodyParser = require("body-parser"),
-      errorHandler = require("./handlers/error"),
-      authRoutes = require("./routes/auth"),
-      messagesRoutes = require("./routes/messages"),
-      { loginRequired, ensureCorrectUser } = require("./middleware/auth"),
-      db = require("./models"),
-      userRoutes = require("./routes/users");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const errorHandler = require("./handlers/error");
+const authRoutes = require("./routes/auth");
+const messagesRoutes = require("./routes/messages");
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
+const db = require("./models");
+const userRoutes = require("./routes/users");
 
 const PORT = process.env.PORT || 8080;
 
@@ -18,32 +18,31 @@ app.use(bodyParser.json());
 // all routes goes here
 app.use("/api/auth", authRoutes);
 
-app.use("/api/users/:id",
+app.use("/api/users/:id", loginRequired, ensureCorrectUser, userRoutes);
+
+app.use(
+  "/api/users/:id/messages",
   loginRequired,
   ensureCorrectUser,
-  userRoutes);
+  messagesRoutes
+);
 
-app.use("/api/users/:id/messages",
-  loginRequired,
-  ensureCorrectUser,
-  messagesRoutes);
-
-app.get("/api/messages", loginRequired, async function(req, res, next) {
+app.get("/api/messages", loginRequired, async function (req, res, next) {
   try {
     let messages = await db.Message.find()
-      .sort({createdAt: "desc"})
+      .sort({ createdAt: "desc" })
       .populate("user", {
         username: true,
-        profileImageUrl: true
+        profileImageUrl: true,
       });
-      return res.status(200).json(messages)
-  } catch(err) {
-    return next(err)
+    return res.status(200).json(messages);
+  } catch (err) {
+    return next(err);
   }
 });
 
 // error handling
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   let err = new Error("Not found!");
   err.status = 404;
   next(err);
@@ -51,6 +50,6 @@ app.use(function(req, res, next){
 
 app.use(errorHandler);
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
   console.log("Server is starting on port: ", PORT);
 });
